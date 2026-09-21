@@ -1,0 +1,3 @@
+arquivo-exemplo
+nao-e-uma-wordlist
+apenas-para-o-exercicio-de-busca

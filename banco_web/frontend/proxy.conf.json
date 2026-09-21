@@ -1,0 +1,22 @@
+{
+  "/api": {
+    "target": "http://127.0.0.1:8002",
+    "secure": false
+  },
+  "/login": {
+    "target": "http://127.0.0.1:8002",
+    "secure": false
+  },
+  "/admin": {
+    "target": "http://127.0.0.1:8002",
+    "secure": false
+  },
+  "/docs": {
+    "target": "http://127.0.0.1:8002",
+    "secure": false
+  },
+  "/openapi.json": {
+    "target": "http://127.0.0.1:8002",
+    "secure": false
+  }
+}

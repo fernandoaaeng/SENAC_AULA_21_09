@@ -1,0 +1,6 @@
+16:56:31 - Script iniciado
+16:56:31 - login ok
+16:56:31 - login falhou
+16:56:31 - Script iniciado
+16:56:31 - login ok
+16:56:31 - login falhou
