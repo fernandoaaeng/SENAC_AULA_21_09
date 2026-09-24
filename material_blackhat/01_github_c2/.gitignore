@@ -1,0 +1,4 @@
+mytoken.txt
+__pycache__/
+*.pyc
+data_simulada/
