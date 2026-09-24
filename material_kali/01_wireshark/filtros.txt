@@ -1,0 +1,8 @@
+# Filtros úteis (cole na barra do Wireshark)
+tcp.port == 8002 && http
+http.request.method == POST && http.request.uri == "/login"
+http.response.code == 401
+http.response.code == 200
+ip.src == 127.0.0.1 && tcp.port == 8002
+tls.handshake.extensions_server_name contains "github"
+tls && ip.dst == 140.82.112.0/20
